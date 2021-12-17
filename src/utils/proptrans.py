@@ -103,7 +103,30 @@ class Proptrans(object):
         """
 
         string = value.strip()
+
+        placeholder = {}
+        i = 1
+        while string.find("{{") != -1 and string.find("}}") != -1:
+            placeholder["[" + str(i) + "]"] = string[string.find("{{"):string.find("}}") + 2]
+            string = string.replace(string[string.find("{{"):string.find("}}") + 2], "[" + str(i) + "]", 1)
+            i = i + 1
+
+        while string.find("{") != -1 and string.find("}") != -1:
+            placeholder["[" + str(i) + "]"] = string[string.find("{"):string.find("}") + 1]
+            string = string.replace(string[string.find("{"):string.find("}") + 1], "[" + str(i) + "]", 1)
+            i = i + 1
+
+        while string.find("<") != -1 and string.find(">") != -1:
+            placeholder["[" + str(i) + "]"] = string[string.find("<"):string.find(">") + 1]
+            string = string.replace(string[string.find("<"):string.find(">") + 1], "[" + str(i) + "]", 1)
+            i = i + 1
+
+        # print("Translating: " + string)
         result = self.translator.translate(string, src=src, dest=dest).text
+        # print("done")
+
+        for key in placeholder:
+            result = result.replace(key, placeholder[key], 1)
 
         result = result.strip().lower().replace('% d', ' %d')
         result = result.strip().lower().replace('% s', ' %s')

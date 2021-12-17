@@ -72,7 +72,8 @@ def main():
 
     translator = Proptrans()
 
-    directory = input('Enter the source directory with the properties file or file paths separated by commas: ').strip()
+    # directory = input('Enter the source directory with the properties file or file paths separated by commas: ').strip()
+    directory = './i18n'
     if os.path.isdir(directory):
         try:
             dir_list = os.listdir(directory)
@@ -90,7 +91,8 @@ def main():
                 print("File or directory path \"{}\" does not exist.".format(el))
                 return
 
-    src = input('Enter the source languages separated by commas or leave it blank for auto selection: ').strip()
+    # src = input('Enter the source languages separated by commas or leave it blank for auto selection: ').strip()
+    src = ''
     if src.strip() == '':
         src = ['auto']
     else:
@@ -101,7 +103,8 @@ def main():
                 print('Wrong source language: {}.'.format(el))
                 return
 
-    destinations = input('Enter destination languages separated by commas: ').strip().split(',')
+    # destinations = input('Enter destination languages separated by commas: ').strip().split(',')
+    destinations = ['ru']
     if len(destinations) == 0:
         print('No destination languages found.')
         return
@@ -111,24 +114,24 @@ def main():
             print('Wrong destination language: {}.'.format(dest))
             return
 
-    keep_format = input('Keep source file format? [y/n]: ')
+    # keep_format = input('Keep source file format? [y/n]: ')
 
-    if keep_format == 'y':
+    # if keep_format == 'y':
         keep_format = True
-    else:
-        keep_format = False
+    # else:
+        # keep_format = False
 
-    do_encode = input('Encode values? [y/n]: ')
+    # do_encode = input('Encode values? [y/n]: ')
 
-    if do_encode == 'y':
-        do_encode = True
+    # if do_encode == 'y':
+    #     do_encode = True
 
-        use_unicode_escape = input('Use unicode-escape to encode values? [y/n]: ')
-        if use_unicode_escape == 'y':
-            use_unicode_escape = True
-        else:
-            use_unicode_escape = False
-    else:
+    #     use_unicode_escape = input('Use unicode-escape to encode values? [y/n]: ')
+    #     if use_unicode_escape == 'y':
+    #         use_unicode_escape = True
+    #     else:
+    #         use_unicode_escape = False
+    # else:
         do_encode = False
         use_unicode_escape = False
 
